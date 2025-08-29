@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>七夕絮语 - 致貟莉莉</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Serif SC', serif;
+            color: #5a3d5c;
+            background: linear-gradient(to bottom, #fdeef4, #e6e1f2, #d5e6f3);
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(149, 107, 153, 0.15);
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 30px 0;
+            position: relative;
+            opacity: 0;
+            animation: fadeIn 2s ease forwards;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            color: #8a5a8b;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: 5px;
+            text-shadow: 2px 2px 4px rgba(170, 126, 172, 0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: #b48bb4;
+            font-style: italic;
+            margin-bottom: 10px;
+            font-family: 'Ma Shan Zheng', cursive;
+        }
+        
+        .date {
+            font-size: 1.1rem;
+            color: #c49ec4;
+            margin-top: 20px;
+        }
+        
+        .content {
+            padding: 20px 0;
+        }
+        
+        .poem {
+            background: rgba(246, 232, 247, 0.5);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: center;
+            border-left: 4px solid #d5b0d6;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 1.5s ease forwards;
+            animation-delay: 0.5s;
+        }
+        
+        .poem-text {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 1.4rem;
+            line-height: 1.8;
+            color: #7e5c7f;
+        }
+        
+        .message {
+            padding: 20px;
+            margin: 30px 0;
+            background: rgba(255, 250, 251, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(183, 147, 194, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 1.5s ease forwards;
+            animation-delay: 1s;
+        }
+        
+        .message p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            text-indent: 2em;
+            color: #666;
+        }
+        
+        .wish {
+            text-align: center;
+            font-style: italic;
+            color: #9d7a9e;
+            margin-top: 30px;
+            padding: 15px;
+            border-top: 1px dashed #d5b0d6;
+            opacity: 0;
+            animation: fadeIn 2s ease forwards;
+            animation-delay: 2s;
+        }
+        
+        .interactive {
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .flower-btn {
+            background: linear-gradient(to right, #d5b0d6, #b48bb4);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(180, 139, 180, 0.3);
+            opacity: 0;
+            animation: fadeIn 2s ease forwards;
+            animation-delay: 1.5s;
+        }
+        
+        .flower-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(180, 139, 180, 0.4);
+        }
+        
+        .hidden-message {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 245, 250, 0.9);
+            border-radius: 15px;
+            text-align: center;
+            font-style: italic;
+            color: #8a5a8b;
+            border: 1px solid #e8cde9;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.5s ease;
+        }
+        
+        .hidden-message.show {
+            display: block;
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #c49ec4;
+            font-size: 0.9rem;
+            opacity: 0;
+            animation: fadeIn 2s ease forwards;
+            animation-delay: 2.5s;
+        }
+        
+        /* 花瓣样式 */
+        .petal {
+            position: absolute;
+            background: rgba(255, 230, 240, 0.7);
+            border-radius: 50% 0 50% 50%;
+            transform: rotate(45deg);
+            z-index: -1;
+        }
+        
+        /* 动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .poem-text {
+                font-size: 1.2rem;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>七夕絮语</h1>
+            <div class="subtitle">纤云弄巧，飞星传恨，银汉迢迢暗度</div>
+            <div class="date">致貟莉莉 · 壬寅年七夕</div>
+        </div>
+        
+        <div class="content">
+            <div class="poem">
+                <div class="poem-text">
+                    金风玉露一相逢，便胜却人间无数<br>
+                    两情若是久长时，又岂在朝朝暮暮
+                </div>
+            </div>
+            
+            <div class="message">
+                <p>莉莉，在这个特别的日子里，我想借星河之喻，表达心中所想。有些情感，如星辰般不言不语，却始终在天空中闪烁；有些牵挂，如清风般无形无迹，却时常拂过心间。</p>
+                
+                <p>人们常说七夕是牛郎织女相会的日子，而我觉得，它更是一个让心中美好情感自然流露的时节。不需华丽的辞藻，不需夸张的誓言，只需一份真诚的惦念，便是这个节日最好的礼物。</p>
+                
+                <p>就像夜空中那淡淡的银河，我们之间那些未曾言明的情愫，反而最为恒久。它们静静地流淌在时光里，不张扬，却从未离开。</p>
+            </div>
+            
+            <div class="interactive">
+                <button class="flower-btn" id="flowerBtn">
+                    <i class="fas fa-leaf"></i> 轻轻点击
+                </button>
+                <div class="hidden-message" id="hiddenMessage">
+                    <p>愿你我如星河两岸，看似遥远，却始终相映相辉。</p>
+                    <p>七夕安康，盼君常喜乐。</p>
+                </div>
+            </div>
+            
+            <div class="wish">
+                <p>但愿人长久，千里共婵娟</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© 2025 七夕 · 以此寄情</p>
+        </div>
+    </div>
+
+    <script>
+        // 创建花瓣效果
+        function createPetals() {
+            const container = document.querySelector('.container');
+            const petalCount = 15;
+            
+            for (let i = 0; i < petalCount; i++) {
+                const petal = document.createElement('div');
+                petal.classList.add('petal');
+                
+                // 随机大小和位置
+                const size = Math.random() * 15 + 5;
+                petal.style.width = `${size}px`;
+                petal.style.height = `${size}px`;
+                
+                petal.style.left = `${Math.random() * 100}%`;
+                petal.style.top = `${Math.random() * 100}%`;
+                
+                // 随机颜色和透明度
+                const colors = ['rgba(255, 230, 240, 0.7)', 'rgba(230, 230, 250, 0.7)', 'rgba(245, 222, 230, 0.7)'];
+                petal.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                // 随机动画
+                const animationDuration = Math.random() * 10 + 5;
+                petal.style.animation = `float ${animationDuration}s infinite ease-in-out`;
+                petal.style.animationDelay = `${Math.random() * 5}s`;
+                
+                container.appendChild(petal);
+            }
+        }
+        
+        // 按钮交互效果
+        document.getElementById('flowerBtn').addEventListener('click', function() {
+            const message = document.getElementById('hiddenMessage');
+            const btn = this;
+            
+            if (!message.classList.contains('show')) {
+                message.classList.add('show');
+                btn.innerHTML = '<i class="fas fa-heart"></i> 感谢阅读';
+                
+                // 添加一些视觉反馈
+                btn.style.background = 'linear-gradient(to right, #e8cde9, #d5b0d6)';
+                
+                // 创建点击后的效果
+                createBlossomEffect();
+            }
+        });
+        
+        // 创建花开效果
+        function createBlossomEffect() {
+            const btn = document.getElementById('flowerBtn');
+            const btnRect = btn.getBoundingClientRect();
+            const btnX = btnRect.left + btnRect.width / 2;
+            const btnY = btnRect.top + btnRect.height / 2;
+            
+            for (let i = 0; i < 10; i++) {
+                const blossom = document.createElement('div');
+                blossom.classList.add('petal');
+                blossom.style.position = 'fixed';
+                blossom.style.left = `${btnX}px`;
+                blossom.style.top = `${btnY}px`;
+                blossom.style.width = '8px';
+                blossom.style.height = '8px';
+                blossom.style.backgroundColor = 'rgba(218, 172, 219, 0.8)';
+                blossom.style.zIndex = '1000';
+                
+                document.body.appendChild(blossom);
+                
+                // 随机方向扩散
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 50 + 50;
+                const duration = Math.random() * 1000 + 1000;
+                
+                // 动画
+                setTimeout(() => {
+                    blossom.style.transition = `all ${duration}ms ease-out`;
+                    blossom.style.transform = `rotate(45deg) translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
+                    blossom.style.opacity = '0';
+                    
+                    // 动画完成后移除元素
+                    setTimeout(() => {
+                        document.body.removeChild(blossom);
+                    }, duration);
+                }, 10);
+            }
+        }
+        
+        // 初始化
+        window.addEventListener('load', function() {
+            createPetals();
+            
+            // 添加滚动效果
+            const messageElements = document.querySelectorAll('.message, .poem');
+            window.addEventListener('scroll', function() {
+                messageElements.forEach(element => {
+                    const position = element.getBoundingClientRect();
+                    
+                    // 当元素进入视口时添加动画
+                    if (position.top < window.innerHeight - 50) {
+                        element.style.animation = 'slideUp 1.5s ease forwards';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
